@@ -35,7 +35,6 @@ data.drop('Test 1', axis=1, inplace=True)
 data.drop('Test 2', axis=1, inplace=True)
 
 
-
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
@@ -50,8 +49,6 @@ def Cost_Reg(theta, X, y, lr ):
     
      
     return np.sum(first - second) / (len(X)) + reg
-
-
 
 
 def Gradient_Reg(theta, X, y, alpha):
@@ -85,13 +82,11 @@ theta2 = np.zeros(X2.shape[1])
 
 alpha = 0.00001
 
-
 rcost = Cost_Reg(theta2, X2, y2, alpha)
 
-result = opt.fmin_tnc(func=Cost_Reg, x0=theta2, fprime=Gradient_Reg,
-                      args=(X2, y2, learningRate))
+result = opt.fmin_tnc(func=Cost_Reg, x0=theta2, fprime=Gradient_Reg, args=(X2, y2, learningRate))
 
-print( f'result = {result} \n' )
+print(f'result = {result} \n')
 
 def predict(theta, X):
     probability = sigmoid(X * theta.T)
@@ -101,4 +96,4 @@ theta_min = np.matrix(result[0])
 predictions = predict(theta_min, X2)
 correct = [1 if ((a == 1 and b == 1) or (a == 0 and b == 0)) else 0 for (a, b) in zip(predictions, y2)]
 accuracy = (sum(map(int, correct)) % len(correct))
-print ('accuracy = {0}%'.format(accuracy))
+print (f'accuracy = {accuracy}%')
